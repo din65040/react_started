@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import List from "./components/List"
+import Message from "./components/Message"
 import "./App.css";
 
 class App extends Component {
-  data = [
-    "This is list sample.",
-    "これはリストのサンプルです。",
-    "配列をリストに変換します。"
-  ];
+  input = '';
 
   msgStyle = {
     fontSize: "20px",
@@ -19,17 +15,34 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: this.data
-    };
+      message: 'type your name'
+    }
+    this.doChange = this.doChange.bind(this);
+    this.doSubmit = this.doSubmit.bind(this);
+  }
+
+  doChange(event) {
+    this.input = event.target.value;
+  }
+
+  doSubmit(event) {
+    this.setState({
+      message: 'Hello, ' + this.input + '!!'
+    })
+    event.preventDefault();
   }
 
   render() {
     return <div>
-      <h1>React</h1>
-      <h2 style={this.msgStyle}>show list</h2>
-      <List title="サンプル・リスト"　data={this.data} />
-    </div>;
+    <h1>React</h1>
+    <Message title="Children!">
+    これはコンポーネント内のコンテンツです。
+    マルでテキストを分割し、リストにして表示します。
+    改行は必要ありません。
+    </Message>
+    </div>
   }
+
 }
 
 export default App;
