@@ -1,35 +1,25 @@
 import React, { Component } from "react";
 
 class Message extends Component {
-  li = {
-    fontSize: "16px",
-    color: "#06",
-    margin: "0",
-    padding: "0",
-  };
+  inputStyle = {
+    fontSize: "12px",
+    padding: "5px"
+  }
+
+  constructor(props) {
+    super(props);
+    this.doChange = this.doChange.bind(this);
+  }
+
+  doChange(e) {
+    if (e.target.value.length > this.props.maxlength) {
+      this.props.onCheck(e);
+      e.target.value = e.target.value.substr(0, this.props.maxlength);
+    }
+  }
 
   render() {
-    let content = this.props.children;
-    let arr = content.split("。");
-    let arr2 = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].trim() != "") {
-        arr2.push(arr[i]);
-      }
-    }
-
-    let list = arr2.map((value, key) => (
-      <li style={this.li} key={key}>
-        {value}.
-      </li>
-    ));
-
-    return (
-      <div>
-        <h2>{this.props.title}</h2>
-        <ol>{list}</ol>
-      </div>
-    );
+    return <input type="text" style={this.inputStyle} onChange={this.doChange} />
   }
 }
 
