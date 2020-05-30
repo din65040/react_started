@@ -1,35 +1,45 @@
 import React, { Component } from "react";
-import Message from "./components/Message"
 import "./App.css";
 
+let data = {
+  title: "Title",
+  message: "this is samle message.",
+};
+
+const SampleContext = React.createContext(data);
 class App extends Component {
-  input = '';
-
-  msgStyle = {
-    fontSize: "20px",
-    color: "#900",
-    margin: "20px 0",
-    padding: "5px"
+  render() {
+    return (
+      <div>
+        <h1>Context</h1>
+        <Title />
+        <Message />
+      </div>
+    );
   }
+}
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: 'type your name'
-    }
-    this.doCheck = this.doCheck.bind(this);
-  }
-
-  doCheck(event) {
-    alert(event.target.value + "は長すぎます（最大10文字）");
-  }
+class Title extends Component {
+  static contextType = SampleContext;
 
   render() {
-    return <div>
-    <h1>React</h1>
-    <h2>{this.state.message}</h2>
-    <Message maxlength="10" onCheck={this.doCheck}></Message>
-    </div>
+    return (
+      <div>
+        <h2>{this.context.title}</h2>
+      </div>
+    );
+  }
+}
+
+class Message extends Component {
+  static contextType = SampleContext;
+
+  render() {
+    return (
+      <div>
+        <p>{this.context.message}</p>
+      </div>
+    );
   }
 }
 
