@@ -26,6 +26,7 @@ class App extends Component {
 // ストアのコネクト
 App = connect()(App);
 
+// メッセージ表示のコンポーネント
 class Message extends Component {
   style = {
     fontsize: "20px",
@@ -44,6 +45,7 @@ class Message extends Component {
 // ストアのコネクト
 Message = connect(mappingState)(Message);
 
+// ボタンのコンポーネント
 class Button extends Component {
   style = {
     fontSize: "16px",
@@ -59,6 +61,8 @@ class Button extends Component {
   doAction(e) {
     if (e.shiftKey) {
       this.props.dispatch({ type: "DECREMENT" });
+    } else if (e.metaKey) {
+      this.props.dispatch({ type: 'RESET' });
     } else {
       this.props.dispatch({ type: "INCREMENT" });
     }
